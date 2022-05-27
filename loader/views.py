@@ -1,6 +1,6 @@
-import logging
 from flask import Blueprint, render_template, request
 from functions import *
+from config import *
 
 loader_blueprint = Blueprint("loader_blueprint", __name__, template_folder="templates")
 
@@ -19,9 +19,9 @@ def page_post_upload():
     error = check_errors(picture, content)
     match error:
         case "allowed":
-            logging.info(f"Попытка загрузки файла формата '{filename.split('.')[-1]}'")
+            logger.info(f"Попытка загрузки файла формата '{filename.split('.')[-1]}'")
         case "not_load_picture":
-            logging.error(f"Не удалось загрузить файл: {filename}")
+            logger.error(f"Не удалось загрузить файл: {filename}")
 
     return render_template('post_uploaded.html',
                            error=error,
